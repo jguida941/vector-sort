@@ -39,10 +39,12 @@ double strToDouble(string str, char ch);
 // Shows a prompt and waits so the user actually has time to read messages to console
 void pauseForUser() {
     cout << YL << "Press Enter to return to menu..." << R << std::flush;
-
-    // show prompt then flush so it appears before input
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // dump any leftover input (etc stray newline)
-    cin.get(); // wait for user to press Enter
+    // Discard any already-buffered input (e.g., an accidental extra Enter)
+    cin.clear();
+    cin.sync();
+    // Now wait for a fresh Enter from the user
+    std::string _pauseLine;
+    std::getline(cin, _pauseLine);
 }
 
 // define a structure to hold bid information
@@ -149,9 +151,6 @@ void displayBid(Bid bid) {
  */
 Bid getBid() {
     Bid bid; // local object to hold bid info
-
-    // If you just read a number earlier, there might be a leftover newline. Clear it first.
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     // Read an ID (could be anything like B-123), so use getline
     // Use CSV column names so inputs match the file format
@@ -399,19 +398,34 @@ int main(int argc, char *argv[]) {
 
         //Prompts a choice in YL(yellow), reads choice, STD flush to ensure prompt shows before input
         std::cout << YL << "➤ " << R << "Enter choice: " << GR << std::flush;
-        cin >> choice; //
+        std::string choiceLine;
+        std::getline(cin, choiceLine);
         std::cout << R; // resets color
 
-        // Guard incase someone typing letters. Reset cin and show a message.
-        if (cin.fail()) {
-            cin.clear(); // clear the stream error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // throw away the bad input
-            choice = 0; // reset choice, this allows the loop to continue without error
-            cout << "\n" << "**Invalid input. Please enter a number.**" << "\n";
+        // trim whitespace
+        auto ltrim = [](std::string &s) {
+            s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch){ return !std::isspace(ch); }));
+        };
+        auto rtrim = [](std::string &s) {
+            s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch){ return !std::isspace(ch); }).base(), s.end());
+        };
+        ltrim(choiceLine); rtrim(choiceLine);
 
-
-            pauseForUser(); // pause to give user a second to read the message
-            continue; // back to menu
+        if (choiceLine.empty()) {
+            choice = 0;
+        } else {
+            try {
+                size_t idx = 0;
+                int parsed = std::stoi(choiceLine, &idx);
+                if (idx != choiceLine.size()) {
+                    throw std::invalid_argument("trailing");
+                }
+                choice = parsed;
+            } catch (...) {
+                cout << "\n" << "**Invalid input. Please enter a number.**" << "\n";
+                pauseForUser();
+                choice = 0;
+            }
         }
 
         switch (choice) {

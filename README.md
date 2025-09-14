@@ -31,7 +31,13 @@ This produces the executable `build/Vector_Sort`.
 
 ## Run
 
-You can point the program at a CSV file, or it will default to `eBid_Monthly_Sales.csv` in the project root (a small sample file is included).
+Recommended (macOS): double‑click `RunVectorSort.command` in Finder. It will
+- check for CMake and Xcode Command Line Tools
+- build the project into `build/`
+- prompt you to choose a CSV (or use the default `eBid_Monthly_Sales.csv`)
+- run the app and keep the Terminal window open
+
+If you prefer the terminal, you can also run the binary directly. It will default to `eBid_Monthly_Sales.csv` in the project root if you don’t pass a path.
 
 ```
 # With explicit CSV
@@ -61,11 +67,21 @@ The example expects a headered CSV. It maps the following columns:
 
 When adding a bid from the menu, the program appends a row using the same column layout, leaving fields it doesn’t track empty.
 
+Included CSVs:
+- `eBid_Monthly_Sales.csv` — full dataset (~12,025 rows)
+- `eBid_Monthly_Sales_Dec_2016.csv` — small sample (76 rows)
+
+Important:
+- The parser is written for the included eBid CSV schema and column order. If you use your own CSV, it must match this header/column layout; otherwise values may be read incorrectly.
+- For a quick start, use one of the included files: `eBid_Monthly_Sales.csv` (large) or `eBid_Monthly_Sales_Dec_2016.csv` (small).
+
 ## Project Layout
 
 - `VectorSorting.cpp` — main program, menu UI, sorting, timing, CSV helpers
 - `CSVparser.hpp/.cpp` — minimal CSV parser
 - `CMakeLists.txt` — build configuration
+- `Makefile` — convenience targets (`make build`, `make run`)
+- `RunVectorSort.command` — macOS double-click launcher (builds then runs)
 
 ## Notes
 
@@ -86,3 +102,30 @@ Timings will vary by machine, compiler, and background load, but they illustrate
 ## License
 
 See `License.txt` for license details.
+
+## macOS Quick Start
+
+- Double‑click `RunVectorSort.command` in Finder. It will build then run, and let you choose a CSV or use the default `eBid_Monthly_Sales.csv`.
+
+If macOS warns that the file is not executable, run once:
+
+```
+chmod +x RunVectorSort.command
+```
+
+## Makefile Shortcuts
+
+If you prefer the terminal:
+
+```
+make            # builds
+make run        # builds then runs (use CSV=/path/to/file.csv to point at a file)
+make clean      # removes the build folder
+```
+
+Examples:
+
+```
+make run CSV=eBid_Monthly_Sales.csv
+make run CSV=eBid_Monthly_Sales_Dec_2016.csv
+```
