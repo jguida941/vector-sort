@@ -1,3 +1,4 @@
+
 # Vector Sort
 
 Basic C++ project that demonstrates two classic sorting algorithms over a vector of records loaded from a CSV file:
@@ -30,7 +31,7 @@ This produces the executable `build/Vector_Sort`.
 
 ## Run
 
-You can point the program at a CSV file, or it will default to `eBid_Monthly_Sales.csv` in the working directory.
+You can point the program at a CSV file, or it will default to `eBid_Monthly_Sales.csv` in the project root (a small sample file is included).
 
 ```
 # With explicit CSV
@@ -75,4 +76,3 @@ When adding a bid from the menu, the program appends a row using the same column
 ## License
 
 See `License.txt` for license details.
-
