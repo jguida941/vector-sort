@@ -73,6 +73,16 @@ When adding a bid from the menu, the program appends a row using the same column
 - Sorting is performed alphabetically on the bid `title`
 - Timing uses `std::chrono::steady_clock` for stable wall-clock measurements
 
+## Benchmarks
+
+From a fresh clone and build on Apple Clang (local run), using the included `eBid_Monthly_Sales.csv` (≈12,025 rows):
+
+- Load CSV: ~0.150 s (≈150,000 µs)
+- Quick Sort: ~0.030 s (≈29,500 µs)
+- Selection Sort: ~3.98 s (≈3,980,000 µs)
+
+Timings will vary by machine, compiler, and background load, but they illustrate the expected O(n log n) vs. O(n^2) behavior.
+
 ## License
 
 See `License.txt` for license details.
