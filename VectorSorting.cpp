@@ -2,19 +2,15 @@
 // Name        : VectorSorting.cpp
 // Author      : Justin Paul Guida
 // Version     : 1.0
-// Copyright   : Copyright � 2023 SNHU COCE
+// Copyright   : Copyright � 2025 SNHU CODE
 // Description : Vector Sorting Algorithms
 //============================================================================
-// Note on assistance:
-// I used an assistant only for terminal UI cosmetics (ANSI borders/colors,
-// dashboard framing, and prompt formatting).
-// All algorithms (selection sort and quicksort/partition), CSV I/O helpers,
-// timing, and program control flow are my own.
 
 #include <algorithm>
 #include <iostream>
-#include <chrono> // Record start/end times using steady_clock to get accurate elapsed duration
+// Record start/end times using steady_clock to get accurate elapsed duration
 // Accounts for OS scheduling, multithreading, and background process interference
+#include <chrono> 
 #include "CSVparser.hpp"
 #include <iomanip> // for std::fixed and std::setprecision (needed for added box prints)
 #include <limits>  // for std::numeric_limits used in input pause
@@ -67,18 +63,21 @@ struct Bid {
 
 // Escape a field for CSV output: wrap in quotes if needed and escape quotes
 static string csvEscape(const string &field) {
-    bool needsQuotes = field.find_first_of(",\n\r\"") != string::npos; // checks for special chars
-    if (!needsQuotes) return field; // if no special chars, return as is
+     // checks for special chars
+    bool needsQuotes = field.find_first_of(",\n\r\"") != string::npos; 
+    // if no special chars, return as is
+    if (!needsQuotes) return field; 
 
     string out; // output string
-    out.reserve(field.size() + 2); // reserve space for efficiency
-    out.push_back('"'); // opening quote
+    // reserve space for efficiency
+    out.reserve(field.size() + 2); 
+    out.push_back('"'); 
     for (char c: field) {
         // In CSV, quotes are escaped by doubling them
         if (c == '"') out.push_back('"');
-        out.push_back(c); // add the character
+        out.push_back(c);
     }
-    out.push_back('"'); // closing quote
+    out.push_back('"'); 
     return out;
 }
 
@@ -92,9 +91,6 @@ static bool appendBidToCsv(const Bid &bid, const string &csvPath) {
     }
 
     // Minimal row: fill known columns; leave others empty
-    //TODO: EBID monthly sales has Auction Title ,Auction ID,Department ,Close Date ,Winning Bid ,CC Fee,Fee Percent,Auction Fee Subtotal,Fund,Auction Fee
-    //Total,Pay Status ,Paid Date ,Asset #,Inventory ID,Decal /Vehicle ID,VTR Number,Receipt Number ,Cap,Expenses,Net Sales,Business Unit
-
     // Note: loadBids reads Title [0], Auction ID [1], Fund [8], Winning Bid [4]
     // Format amount like the source file (with a leading $)
     std::ostringstream amt;
@@ -204,7 +200,7 @@ vector<Bid> loadBids(string csvPath) {
             bid.bidId = file[i][1];
             bid.fund = file[i][8];
             bid.amount = strToDouble(file[i][4], '$');
-            //***TODO: are these all the correct columns? Check when you have time justin.****
+            //***TODO: This is hardcoded!***
 
             //cout << "Item: " << bid.title << ", Fund: " << bid.fund << ", Amount: " << bid.amount << endl;
 
@@ -218,7 +214,6 @@ vector<Bid> loadBids(string csvPath) {
     return bids;
 }
 
-// FIXME (2a): Implement the quick sort logic over bid.title
 
 /**
  * Partition the vector of bids into two parts, low and high
@@ -299,7 +294,6 @@ void quickSort(vector<Bid> &bids, int begin, int end) {
     quickSort(bids, partitionIndex + 1, end);
 }
 
-// FIXME (1a): Implement the selection sort logic over bid.title
 
 /**
  * Perform a selection sort on bid title
@@ -315,16 +309,12 @@ void selectionSort(vector<Bid> &bids) {
     //get size of the bids vector, hold in size_t variable
     size_t size = bids.size();
 
-    //for loop over the Bid vector from 0 to size -1
-    //this allows us to compare each element to the rest of the elements
+    
     for (size_t pos = 0; pos < size - 1; ++pos) {
-        //minIndex is equal to pos at start of each interation
-        //this is because the minimum could be the first element
         minIndex = pos;
 
         //loop over the remaining elements to the right of position; declare as j to avoid confuction with size_t pos
         for (size_t j = pos + 1; j < size; ++j) {
-            // if this element's title is less than minimum title
             if (bids[j].title < bids[minIndex].title) {
                 minIndex = j;
             }
@@ -503,8 +493,6 @@ int main(int argc, char *argv[]) {
                 pauseForUser();
                 break;
 
-
-            // FIXME (2b): Invoke the quick sort and report timing results
 
             //Declare the case 4 option
             case 4:
