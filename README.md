@@ -10,8 +10,8 @@ It includes a small, colorized terminal UI, timing of operations, and a lightwei
 
 ## Vector Sort Demo
 
-https://github.com/user-attachments/assets/2f08f1ea-fb79-406a-9440-9e96a70c293f
 
+![Vector Sort demo](https://github.com/user-attachments/assets/2f08f1ea-fb79-406a-9440-9e96a70c293f)
 
 
 
