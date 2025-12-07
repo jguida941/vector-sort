@@ -11,7 +11,8 @@ It includes a small, colorized terminal UI, timing of operations, and a lightwei
 ## Vector Sort Demo
 
 
-![Vector Sort demo](https://github.com/user-attachments/assets/2f08f1ea-fb79-406a-9440-9e96a70c293f)
+![Vector Sort demo](https://github.com/user-attachments/assets/2eeb4e86-a274-43db-9e75-13b5dca3032e)
+
 
 
 
