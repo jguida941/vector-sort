@@ -2,7 +2,6 @@
 // Name        : VectorSorting.cpp
 // Author      : Justin Paul Guida
 // Version     : 1.0
-// Copyright   : Copyright � 2025 SNHU CODE
 // Description : Vector Sorting Algorithms
 //============================================================================
 
