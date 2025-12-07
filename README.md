@@ -8,6 +8,8 @@ Basic C++ project that demonstrates two classic sorting algorithms over a vector
 
 It includes a small, colorized terminal UI, timing of operations, and a lightweight CSV parser to make the example practical and a bit more fun to explore.
 
+https://github.com/user-attachments/assets/8325803d-8410-4961-9099-ee95fb315056
+
 ## What You’ll Learn
 
 - Vectors, structs, and functions in modern C++
