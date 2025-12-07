@@ -8,8 +8,8 @@ Basic C++ project that demonstrates two classic sorting algorithms over a vector
 
 It includes a small, colorized terminal UI, timing of operations, and a lightweight CSV parser to make the example practical and a bit more fun to explore.
 
-## Demo
-![Vector Sort demo](https://github.com/user-attachments/assets/16cfa299-93d0-4f81-9710-2ad6459ab0e4)
+## Vector Sort Demo
+![Vector Sort demo](https://github.com/user-attachments/assets/af8509e7-9354-4898-ac62-d7f9f5094521)
 
 
 
